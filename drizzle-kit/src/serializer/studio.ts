@@ -38,6 +38,7 @@ import type { SingleStoreCredentials } from '../cli/validations/singlestore';
 import type { SqliteCredentials } from '../cli/validations/sqlite';
 import type { Proxy, TransactionProxy } from '../utils';
 import { prepareFilenames } from '.';
+import { jsonViewerHtml } from './studio-json-viewer';
 import { getColumnCasing } from './utils';
 
 type CustomDefault = {
@@ -740,6 +741,9 @@ export const prepareServer = async (
 		relationalSchema,
 		createTableRelationsHelpers,
 	);
+
+	// Local page that renders table rows / query results as a collapsible JSON tree
+	app.get('/json', (c) => c.html(jsonViewerHtml));
 
 	app.post('/', zValidator('json', schema), async (c) => {
 		const body = c.req.valid('json');

@@ -794,6 +794,13 @@ export const studio = command({
 								)
 							}`,
 						);
+
+						const viewerHost = host === '0.0.0.0' || host === '::' ? '127.0.0.1' : host;
+						console.log(
+							`JSON viewer is available on ${
+								chalk.blue(`${key ? 'https' : 'http'}://${viewerHost}:${port}/json`)
+							}`,
+						);
 					}
 				},
 			});
